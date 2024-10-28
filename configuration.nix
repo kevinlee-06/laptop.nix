@@ -68,6 +68,7 @@ in
     };
   };
 
+  # Desktop
   services.xserver = {
     enable = true;
     desktopManager.gnome.enable = true;
@@ -81,23 +82,9 @@ in
     };
   };
 
-  # # Desktop
-  # services.xserver.displayManager.gdm = {
-  #   enable = true;
-  #   wayland = true;
-  # };
-  # services.xserver.desktopManager.gnome.enable = true;
-  # services.xserver.desktopManager.cinnamon.enable = true;
-  # X11
-  # services.xserver.enable = true;
-  # services.xserver.xkb = {
-  #   layout = "us";
-  #   variant = "";
-  # };
-
   # CUPS
   services.printing.enable = true;
-
+  
   # Audio
   hardware.pulseaudio.enable = false;
   security.rtkit.enable = true;
@@ -160,37 +147,43 @@ in
   programs.adb.enable = true;
 
   # Packages
-  environment.systemPackages = with pkgs; [
-    btop
-    cava
-    curl
-    distrobox
-    git
-    gparted
-    gnome-themes-extra
-    gtk-engine-murrine
-    htop
-    qemu
-    sassc
-    virt-manager
-    neovim
-    neofetch
-    nix-software-center
-    unimatrix
-    vim
-    wget
-    python313Full
-    go
-    nodejs_22
-    glxinfo
-    mesa
-    gcc
-    rustc
-    rustup
-    tmux
-    gnome.gnome-tweaks
-    gnome-extension-manager
-  ];
+  environment.systemPackages = (with pkgs; [
+      btop
+      cava
+      curl
+      distrobox
+      git
+      gparted
+      gnome-themes-extra
+      gtk-engine-murrine
+      htop
+      qemu
+      sassc
+      virt-manager
+      neovim
+      neofetch
+      nix-software-center
+      unimatrix
+      vim
+      wget
+      python313Full
+      go
+      nodejs_22
+      glxinfo
+      mesa
+      gcc
+      rustc
+      rustup
+      tmux
+      gnome.gnome-tweaks
+      gnome-extension-manager
+    ] ++ [
+      gnomeExtensions.blur-my-shell
+      gnomeExtensions.dash-to-dock
+      # gnomeExtensions.tilling-shell
+      gnomeExtensions.vertical-workspaces
+    ]);
+  
 
   # Font packages
   fonts = {

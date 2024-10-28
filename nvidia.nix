@@ -7,8 +7,15 @@
     };
   };
 
+# GPU 
   hardware = {
-    opengl.enable = true;
+    opengl = {
+      enable = true;
+      extraPackages = with pkgs; [
+        intel-media-driver
+        intel-compute-runtime
+      ];
+    };
     nvidia =  {
       package = config.boot.kernelPackages.nvidiaPackages.mkDriver {
         version = "550.127.05";
