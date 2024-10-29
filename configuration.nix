@@ -9,13 +9,13 @@ let
     sha256 = "xiqF1mP8wFubdsAQ1BmfjzCgOD3YZf7EGWl9i69FTls=";
   }) {};
 in
-
 {
   # Hardware config
   imports = [
     ./hardware-configuration.nix
     ./nvidia.nix
     ./zerotier.nix
+    ./sleep.nix
   ];
 
   # Bootloader
@@ -55,7 +55,7 @@ in
       "zh_TW.UTF-8/UTF-8"
     ];
     inputMethod = {
-      # enabled = "fcitx5";
+      enabled = "fcitx5";
       # type = "fcitx5";
       # enable = true;
       # waylandFrontend = true;
@@ -113,20 +113,6 @@ in
     ];
   };
 
-  users.users.npc = {
-    isNormalUser = true;
-    description = "npc";
-    extraGroups = [ "networkmanager" "docker" ];
-    packages = with pkgs; [
-      thunderbird
-      vscode
-      vesktop
-      chromium
-      brave
-      vlc
-    ];
-  };
-
   # Firefox
   programs.firefox.enable = true;
   
@@ -180,6 +166,7 @@ in
     ] ++ [
       gnomeExtensions.blur-my-shell
       gnomeExtensions.dash-to-dock
+      gnomeExtensions.kimpanel
       # gnomeExtensions.tilling-shell
       gnomeExtensions.vertical-workspaces
     ]);
@@ -212,7 +199,6 @@ in
   };
 
   environment.variables.EDITOR = "vim";
-
  # Docker
   virtualisation = {
     podman = {
@@ -226,14 +212,6 @@ in
           setSocketVariable = true;
       };
     };
-  };
-
-  # Keep alive
-  systemd.targets = {
-    sleep.enable = false;
-    suspend.enable = false;
-    hibernate.enable = false;
-    hybrid-sleep.enable = false; 
   };
 
   system.stateVersion = "24.05"; # Did you read the comment?
