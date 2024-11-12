@@ -163,6 +163,10 @@ in
       tmux
       gnome.gnome-tweaks
       gnome-extension-manager
+      linux-firmware
+      pciutils
+      waypipe
+      ffmpeg
     ] ++ [
       gnomeExtensions.blur-my-shell
       gnomeExtensions.dash-to-dock
@@ -171,6 +175,7 @@ in
       gnomeExtensions.vertical-workspaces
     ]);
   
+  services.power-profiles-daemon.enable = true;
 
   # Font packages
   fonts = {
